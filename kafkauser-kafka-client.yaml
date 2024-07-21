@@ -1,0 +1,40 @@
+apiVersion: eventstreams.ibm.com/v1beta2
+kind: KafkaUser
+metadata:
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: esminimal
+    backup.eventstreams.ibm.com/component: kafkauser
+    eventstreams.ibm.com/cluster: esminimal
+  name: kafka-client
+  namespace: integration
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    acls:
+    - host: '*'
+      operations:
+      - Read
+      - Write
+      - Create
+      resource:
+        name: '*'
+        patternType: literal
+        type: topic
+    - host: '*'
+      operations:
+      - Read
+      - Alter
+      resource:
+        name: __schema_
+        patternType: prefix
+        type: topic
+    - host: '*'
+      operations:
+      - Read
+      resource:
+        name: '*'
+        patternType: literal
+        type: group
+    type: simple

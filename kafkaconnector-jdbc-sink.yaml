@@ -1,0 +1,26 @@
+apiVersion: eventstreams.ibm.com/v1beta2
+kind: KafkaConnector
+metadata:
+  name: jdbc-sink
+  namespace: integration
+  labels:
+    eventstreams.ibm.com/cluster: jdbc-connector-cluster
+    backup.eventstreams.ibm.com/component: kafkaconnector
+spec:
+  class: io.aiven.connect.jdbc.JdbcSinkConnector
+  tasksMax: 1
+  config:
+    batch.size: 3
+    connection.url: jdbc:postgresql://postgresql.postgresql.svc:5432/demo
+    connection.user: postgres
+    connection.password: Password
+    topics: transactions
+    insert.mode: insert
+    # insert.mode: upsert
+    auto.create: true
+    auto.evolve: true
+    table.name.format: from_kafka_${topic}
+    # pk.mode: none
+    pk.mode: record_value
+    pk.fields: id
+    value.converter: org.apache.kafka.connect.json.JsonConverter

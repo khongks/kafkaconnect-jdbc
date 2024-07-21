@@ -1,0 +1,29 @@
+apiVersion: eventstreams.ibm.com/v1beta2
+kind: KafkaConnector
+metadata:
+  name: jdbc-source
+  namespace: integration
+  labels:
+    eventstreams.ibm.com/cluster: jdbc-connector-cluster
+    backup.eventstreams.ibm.com/component: kafkaconnector
+spec:
+
+  class: io.aiven.connect.jdbc.JdbcSourceConnector
+  tasksMax: 1
+  config:
+    batch.max.rows: 1
+    connection.url: jdbc:postgresql://postgresql.postgresql.svc:5432/demo
+    connection.user: postgres
+    connection.password: Password
+    # schema.pattern: postgres
+    topic.prefix: from-db-
+    catalog.pattern : public
+    table.whitelist: customers
+    poll.interval.ms : 5000
+    table.poll.interval.ms: 60000
+    # mode: bulk
+    # mode: timestamp
+    # timestamp.column.name: updated_at
+    mode: incrementing
+    incrementing.column.name: id
+    validate.non.null: false

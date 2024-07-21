@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: postgresql
+commonLabels:
+  app: postgresql
+resources:
+  - ./config/adminpwd-secret.yaml
+  - ./config/extended-configmap.yaml
+  - ./config/postgres-sts.yaml
+  - ./config/service.yaml
