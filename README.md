@@ -375,6 +375,11 @@ The Kafka JDBC Sink connector is receive events from a Kafka topic and insert th
    ```
    $ ./create-table.sh
    ```
+  where parameters are:
+  - PG_TABLE_NAME: Name of the table to be created for Source. Default is `customers`.
+  - PG_DATABASE_NAME: Database name. Default is `demo`.
+  - PG_INSTANCE_NAME: Instance name of PostgreSQL database. Default is `postgresql`.
+  - PG_NAMESPACE: Namespace where PostgreSQL database is installed. Default is `postgresql`.
 
 1. You need to create a KafkaUser for `SCRAM-SHA-512` authentication (needed for external access). Use the `kafkausear-kafka-client` file.
    ```
