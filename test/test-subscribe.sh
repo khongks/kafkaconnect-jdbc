@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export ES_INSTANCE=esminimal
-export ES_KAFKA_USER=kafka-client
-export ES_NAMESPACE=integration
-export ES_TOPIC=from-db-customers
+export ES_TOPIC=${1:-from-db-customers}
+export ES_KAFKA_USER=${2:-kafka-client}
+export ES_INSTANCE=${3:-esminimal}
+export ES_NAMESPACE=${4:-integration}
 
 export ES_BOOTSTRAP_HOST=`oc get route -n $ES_NAMESPACE $ES_INSTANCE-kafka-bootstrap -ojson | jq -r '.status.ingress[].host'`
 export ES_BOOTSTRAP_PORT=443
